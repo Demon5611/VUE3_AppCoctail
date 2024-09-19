@@ -14,7 +14,7 @@
 
 <script setup>
 import bgImage from '../assets/img/bg-1.jpg'
-import { useRootStore } from '@/stores/root'
+import { useRootStore } from '../../../src/stores/root'
 import { useRouter } from 'vue-router'
 
 const rootStore = useRootStore() // обратились к store
@@ -41,7 +41,7 @@ const handleRandomCoctail = () => {
 </script>
 
 <style lang="sass" scoped>
-@import '@/assets/styles/main'
+@import '../../shared/styles/main'
 
 .root
   display: flex

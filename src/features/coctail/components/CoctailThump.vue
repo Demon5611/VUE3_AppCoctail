@@ -1,6 +1,6 @@
 <script setup>
-import { onMounted } from 'vue';
-import { useRootStore } from '@/stores/root'
+import { RouterLink } from 'vue-router'
+
 
 
 const props = defineProps({
@@ -10,18 +10,13 @@ const props = defineProps({
   }
 })
 
-const rootStore = useRootStore()
-onMounted(() => {
-  rootStore.clearCoctail()
-})
 </script>
 
-
-<template>
-    
+ <!-- Шаблон коктейля - картинка и название коктейля, вызывыем в цикле в Home.vue -->
+<template>    
   <div class="root">
     <RouterLink :to="`/coctails/${coctail.idDrink}`">
-      <div :style="`background-image: url(${coctail.strDrinkThumb})`" class="pic"></div>
+      <div :style="{ backgroundImage: `url(${coctail.strDrinkThumb})` }" class="pic"></div>
       <div class="name">{{ coctail.strDrink }}</div>
     </RouterLink>
 </div>
@@ -29,7 +24,7 @@ onMounted(() => {
 
 
 <style lang='sass' scoped>
-@import '../assets/styles/main'
+@import '../../../shared/styles/main'
 
 .root
     display: inline-block
@@ -48,8 +43,13 @@ onMounted(() => {
             background-repeat: no-repeat
             background-position: 50% 50%
             background-size: 100%
+            border-radius: 8px
 
 .name
-    padding-top: 15px
-    letter-spacing: 0.1px
+        padding-top: 15px
+        letter-spacing: 0.1px
+        text-decoration: none
+        letter-spacing: 0.7px
+        font-weight: 400 
+      
 </style>

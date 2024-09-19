@@ -1,12 +1,12 @@
 <template>
-  <AppLayout> 
+  <AppLayout>
     <div class="wrapper">
       <div v-if="coctail">
-        <img src="@/assets/img/back.png" @click="backHome" alt="#" class="btn-back" />
+        <img src="../../../../shared/assets/img/back.png" @click="backHome" alt="#" class="btn-back" />
         <div class="title">{{ coctail.strDrink }}</div>
         <div class="line"></div>
         <ul>
-          <li  v-for="(item, index) in ingredientsList" :key="index">
+          <li v-for="(item, index) in ingredientsList" :key="index">
             {{ item.ingredient }} | {{ item.measure }}
           </li>
           <p class="text">{{ coctail.strInstructions }}</p>
@@ -17,12 +17,12 @@
 </template>
 
 <script setup>
-import { useBackHome } from '@/utils/navigation'
-import { useRootStore } from '@/stores/root'
+import { useRootStore } from '../../../../stores/root'
 import { storeToRefs } from 'pinia'
 import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import AppLayout from '../components/AppLayout.vue'
+import { useBackHome } from '../../../../shared/utils/navigation'
+import AppLayout from '../../../../shared/components/AppLayout.vue'
 
 const rootStore = useRootStore() // обратились к store
 const { coctail } = storeToRefs(rootStore) // Сохраняем данные коктейля в реф
@@ -51,12 +51,11 @@ const ingredientsList = computed(() => {
 </script>
 
 <style lang="sass" scoped>
-@import '../assets/styles/main'
+@import '../../../../shared/styles/main'
 .wrapper
-    padding: 20%
+  padding: 20%
 
 .title
-    font-size: 40px
-    text-align: center
-
+  font-size: 40px
+  text-align: center
 </style>
