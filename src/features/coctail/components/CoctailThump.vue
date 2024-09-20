@@ -29,10 +29,10 @@ const props = defineProps({
 .root
     display: inline-block
     width: calc((100% - 76px) / 3)
-    padding-right: 38px
+    padding-right: 5%
     padding-bottom: 20px
     max-height: 100px
-    margin-top: 40px
+    margin-top: 20px
 
     &:nth-child(3n + 1)
         padding-right: 0

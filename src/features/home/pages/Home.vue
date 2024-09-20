@@ -57,7 +57,7 @@ function goToCoctail(id) {
         <img src="../../../shared/assets/img/cocktails.png" alt="#" class="img" />
       </div>
       <div v-else class="info">
-        <img src="../../../../shared/assets/img/back.png" @click="backHome" alt="#" class="btn-back" />
+        <img src="../../../shared/assets/img/back.png" @click="backHome" alt="<- back" class="btn-back" />
         <div class="title">COCKTAILS WITH {{ ingredient }}</div>
         <div class="line"></div>
         <div class="coctails">
@@ -80,7 +80,7 @@ function goToCoctail(id) {
 @import '../../../shared/styles/main'
 
 .info
-  padding: 80px 0
+  padding: 5% 0
   text-align: center
   display: flex
   flex-direction: column

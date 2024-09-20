@@ -52,10 +52,6 @@ const ingredientsList = computed(() => {
 
 <style lang="sass" scoped>
 @import '../../../../shared/styles/main'
-.wrapper
-  padding: 20%
 
-.title
-  font-size: 40px
-  text-align: center
+
 </style>

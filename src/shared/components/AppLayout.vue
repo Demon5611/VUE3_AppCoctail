@@ -49,7 +49,8 @@ const handleRandomCoctail = () => {
   min-height: 100vh
 
 .img
-  width: 50%
+  width: 30vw
+  height: 100vh
   background-repeat: no-repeat
   background-position: 50% 50%
   background-size: cover
@@ -59,5 +60,5 @@ const handleRandomCoctail = () => {
   display: flex
   justify-content: center
   width: 50%
-  padding: 32px 40px
+  padding: 0 0
 </style>

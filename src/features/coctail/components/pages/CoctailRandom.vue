@@ -7,7 +7,8 @@
         <div class="line"></div>
         <ul class="ingredients-list">
           <img :src="coctail.strDrinkThumb" alt="Ingredient image" class="ingredient-img" />
-          <li v-for="(item, index) in randomListCoctail" :key="index">
+          <li class='ingredients-text' v-for="(item, index) in randomListCoctail" :key="index">
+            <img src="../../../../shared/assets/img/heart.png" alt="heat" class="heat-img" />
             {{ item.ingredient }}
           </li>
         </ul>
@@ -61,54 +62,23 @@ const randomListCoctail = computed(() => {
 <style lang="sass" scoped>
 @import '../../../../shared/styles/main'
 
-.wrapper
-  display: flex
-  justify-content: center
-  align-items: center
-  min-height: 100vh
-  padding: 0 40px
+
 
 .ingredients-list
   list-style-type: none
   padding: 0
-  margin-bottom: 20px
+  margin-bottom: 10px
 
-.coctail-container
-  display: flex
-  width: 100%
+.ingredients-text
+  margin-bottom: 2%
 
-.image-container
-  width: 50%
-
-.coctail-img
-  width: 100%
-  height: auto
-  border-radius: 10px
-
-.info-container
-  width: 50%
-  padding: 20px
-  display: flex
-  flex-direction: column
-  justify-content: center
-  align-items: center
-
-.title
-  font-size: 32px
-  font-weight: bold
-  text-align: center
-  margin-bottom: 20px
-
-.line
-  width: 60px
-  height: 4px
-  background-color: #ff5e57
-  margin-bottom: 20px
+.heat-img
+  width: 17px
+  margin-right: 10px
 
 .ingredient-img
-
   width: 100px
   height: 100px
-  margin: 0 auto 20px auto // Центрируем по горизонтали с авто-отступами
+  margin: 0 auto 10% auto // Центрируем по горизонтали с авто-отступами
   display: block // Это необходимо для margin: auto
 </style>
