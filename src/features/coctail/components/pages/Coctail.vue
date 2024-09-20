@@ -2,7 +2,12 @@
   <AppLayout>
     <div class="wrapper">
       <div v-if="coctail">
-        <img src="../../../../shared/assets/img/back.png" @click="backHome" alt="#" class="btn-back" />
+        <img
+          src="../../../../shared/assets/img/back.png"
+          @click="backHome"
+          alt="#"
+          class="btn-back"
+        />
         <div class="title">{{ coctail.strDrink }}</div>
         <div class="line"></div>
         <ul>
@@ -17,22 +22,21 @@
 </template>
 
 <script setup>
-import { useRootStore } from '../../../../stores/root'
 import { storeToRefs } from 'pinia'
 import { computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import { useBackHome } from '../../../../shared/utils/navigation'
+
 import AppLayout from '../../../../shared/components/AppLayout.vue'
+import { useBackHome } from '../../../../shared/utils/navigation'
+import { useRootStore } from '../../../../stores/root'
+import { getCoctailById } from '../../../../features/coctail/services/coctailService' // Импортируем функцию из сервиса
+import { useRoute } from 'vue-router'
 
 const rootStore = useRootStore() // обратились к store
 const { coctail } = storeToRefs(rootStore) // Сохраняем данные коктейля в реф
-const route = useRoute() // Импортируем маршрут
+
 const backHome = useBackHome(null)
 
-onMounted(() => {
-  const id = route.params.id
-  rootStore.getCoctailById(id)
-})
+// список ингредиентов в коктейле
 const ingredientsList = computed(() => {
   if (!coctail.value) return []
 
@@ -48,10 +52,25 @@ const ingredientsList = computed(() => {
 
   return ingredients
 })
+
+const route = useRoute()
+// Получение коктейля по ID при монтировании компонента
+onMounted(async () => {
+  const id = route.params.id // Получаем ID из маршрута
+  await renderCoctailById(id) // Вызываем функцию для получения коктейля
+})
+
+async function renderCoctailById (id) {
+  try {
+    const coctailData = await getCoctailById(id) // Вызов функции из сервиса
+    rootStore.coctail = coctailData // Сохраняем данные коктейля в store
+  } catch (error) {
+    console.error('Ошибка при получении коктейля по ID', error)
+  }
+}
+
 </script>
 
 <style lang="sass" scoped>
 @import '../../../../shared/styles/main'
-
-
 </style>

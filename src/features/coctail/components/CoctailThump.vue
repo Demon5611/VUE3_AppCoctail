@@ -2,7 +2,6 @@
 import { RouterLink } from 'vue-router'
 
 
-
 const props = defineProps({
   coctail: {
     type: Object,

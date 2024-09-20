@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Coctail from '../features/coctail/components/pages/Coctail.vue'
+// import Coctail from '../features/coctail/components/pages/Coctail.vue'
 import CoctailRandom from '../features/coctail/components/pages/CoctailRandom.vue'
 import Home from '../features/home/pages/Home.vue'
 
@@ -12,9 +12,9 @@ const router = createRouter({
       component: Home
     },
     {
-      path: '/coctail/:id',
+      path: '/coctails/:id',
       name: 'coctail',
-      component: Coctail
+      component: () => import('../features/coctail/components/pages/Coctail.vue')
     },
     {
       path: '/random',

@@ -1,27 +1,44 @@
 <script setup>
-import CoctailThump from '../../../features/coctail/components/CoctailThump.vue'
-import { useRootStore } from '../../../stores/root'
-import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useBackHome } from '../../../shared/utils/navigation'
+import CoctailThump from '../../../features/coctail/components/CoctailThump.vue'
+import { getCoctails, getIngredients } from '../../../features/coctail/services/coctailService'
 import AppLayout from '../../../shared/components/AppLayout.vue'
+import { useBackHome } from '../../../shared/utils/navigation'
+import { useRootStore } from '../../../stores/root' 
 
-onMounted(() => {
-  rootStore.clearCoctail()
+// Создаем переменные для данных
+const ingredients = ref(null) 
+const coctails = ref(null) 
+const ingredient = ref(null) 
+
+const rootStore = useRootStore() // Обращаемся к store для методов clearCoctail и randomCoctail
+const router = useRouter() // Для маршрутизации
+const backHome = useBackHome(ingredient) 
+
+// Получаем список ингредиентов при монтировании компонента
+onMounted(async () => {
+  rootStore.clearCoctail() 
+
+
+  ingredients.value = await getIngredients() 
 })
 
-const rootStore = useRootStore() // обратились к store
-rootStore.getIngredients() // вызвали метод и получили список ингредиентов
+// Получаем коктейли по выбранному ингредиенту
+function getCoctailsList() {
 
-const { ingredients, coctails } = storeToRefs(rootStore) // обернули ингридиенты в реф, что бы они были реактивными
-const ingredient = ref(null) // Определяем реактивную переменную для выбранного ингредиента
-const router = useRouter()
-const backHome = useBackHome(ingredient)
-function getCoctails() {
-  rootStore.getCoctails(ingredient.value)
+  if (ingredient.value) {
+    getCoctails(ingredient.value) 
+      .then((data) => {
+        coctails.value = data 
+      })
+      .catch((error) => {
+        console.error('Ошибка при получении коктейлей по ингредиенту:', error)
+      })
+  }
 }
 
+// Переход- путь к детальной странице коктейля
 function goToCoctail(id) {
   router.push({ name: 'coctail', params: { id } })
 }
@@ -40,7 +57,7 @@ function goToCoctail(id) {
             size="large"
             style="width: 240px"
             class="select"
-            @change="getCoctails"
+            @change="getCoctailsList"
           >
             <el-option
               v-for="item in ingredients"
@@ -71,25 +88,22 @@ function goToCoctail(id) {
       </div>
     </div>
   </AppLayout>
-  padding: 10px 20px background-color: #28a745 color: #fff border: none border-radius: 5px cursor:
-  pointer
 </template>
-
 
 <style lang="sass" scoped>
 @import '../../../shared/styles/main'
 
 .info
-  padding: 5% 0
+  padding: 80px 0
   text-align: center
   display: flex
   flex-direction: column
   align-items: center
   width: 100%
 
-  .select-wrapper
-    padding-top: 50px
-    width: 220px
+.select-wrapper
+  padding-top: 50px
+  width: 220px
 
 .img
   margin-top: 50px
@@ -99,4 +113,3 @@ function goToCoctail(id) {
   overflow-y: auto
   margin-top: 50px
 </style>
-
